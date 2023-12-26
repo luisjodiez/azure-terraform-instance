@@ -1,24 +1,24 @@
 resource "azurerm_resource_group" "linux-vm-rg" {
-  name     = "linux-vm-resources-${terraform.workspace}"
-  location = var.location[terraform.workspace]
+  name     = "${var.prefix}-rg"
+  location = "West Europe"
 }
 
-resource "azurerm_virtual_network" "linux-vm-vn" {
-  name                = "linux-vm-network"
+resource "azurerm_virtual_network" "linux-vm-network" {
+  name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.linux-vm-rg.location
   resource_group_name = azurerm_resource_group.linux-vm-rg.name
 }
 
 resource "azurerm_subnet" "linux-vm-subnet" {
-  name                 = "internal"
+  name                 = "internal-subnet"
   resource_group_name  = azurerm_resource_group.linux-vm-rg.name
   virtual_network_name = azurerm_virtual_network.linux-vm-vn.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
 resource "azurerm_network_interface" "linux-vm-nic" {
-  name                = "linux-vm-nic"
+  name                = "${var.prefix}-nic"
   location            = azurerm_resource_group.linux-vm-rg.location
   resource_group_name = azurerm_resource_group.linux-vm-rg.name
 
@@ -30,7 +30,7 @@ resource "azurerm_network_interface" "linux-vm-nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "linux-vm" {
-  name                = "linux-vm-instance"
+  name                = "${var.prefix}-instance"
   resource_group_name = azurerm_resource_group.linux-vm-rg.name
   location            = azurerm_resource_group.linux-vm-rg.location
   size                = "Standard_F2"
@@ -50,9 +50,9 @@ resource "azurerm_linux_virtual_machine" "linux-vm" {
   }
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
-    version   = "latest"
+    publisher = var.az_vm_publisher
+    offer     = var.az_vm_offer
+    sku       = var.az_vm_sku
+    version   = var.az_vm_version
   }
 }
