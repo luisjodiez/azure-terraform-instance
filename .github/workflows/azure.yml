@@ -23,7 +23,7 @@ jobs:
 
     - id: apply
       name: TF Plan
-      run: terraform apply -auto-approve
+      run: terraform plan
 
     - id: apply
       name: TF Apply
