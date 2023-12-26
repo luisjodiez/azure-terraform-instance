@@ -1,4 +1,4 @@
-name: Run Azure with OpenID and launch TF workflow
+name: Run Azure and launch TF workflow
 on: [push]
 
 permissions:
@@ -15,15 +15,15 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-       
+
     - uses: actions/checkout@v4
 
     - run: ls -lha1
 
     - run: terraform init
 
-    - id: plan
-      run: terraform plan
+    - id: apply
+      run: terraform apply -auto-approve
 
     - run: echo ${{ steps.plan.outputs.stdout }}
     - run: echo ${{ steps.plan.outputs.stderr }}
