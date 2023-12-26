@@ -15,12 +15,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-
-    - uses: hashicorp/setup-terraform@v3
-    
+       
     - uses: actions/checkout@v4
 
-    - run: ls -lh1
+    - run: ls -lha1
 
     - run: terraform init
 
