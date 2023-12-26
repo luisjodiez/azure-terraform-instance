@@ -21,7 +21,7 @@ jobs:
     - run: terraform init
       name: Tf Init
 
-    - id: apply
+    - id: plan
       name: TF Plan
       run: terraform plan
 
