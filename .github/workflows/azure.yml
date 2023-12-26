@@ -1,4 +1,4 @@
-name: Run Azure Login with OpenID Connect
+name: Run Azure with OpenID and launch TF workflow
 on: [push]
 
 permissions:
@@ -15,9 +15,14 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  
-    - name: 'Run Azure CLI commands'
-      run: |
-          az account show
-          az group list
-          pwd
+
+    - uses: hashicorp/setup-terraform@v3
+
+    - run: terraform init
+
+    - id: plan
+      run: terraform plan
+
+    - run: echo ${{ steps.plan.outputs.stdout }}
+    - run: echo ${{ steps.plan.outputs.stderr }}
+    - run: echo ${{ steps.plan.outputs.exitcode }}
