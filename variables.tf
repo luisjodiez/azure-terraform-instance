@@ -1,24 +1,24 @@
 variable "prefix" {
-  type = string
+  type    = string
   default = "linux-vm"
 }
 
 variable "az_vm_publisher" {
-  type = string
+  type    = string
   default = "Canonical"
 }
 
 variable "az_vm_offer" {
-  type = string
+  type    = string
   default = "0001-com-ubuntu-server-jammy"
 }
 
 variable "az_vm_sku" {
-  type = string
+  type    = string
   default = "22_04-lts"
 }
 
 variable "az_vm_version" {
-  type = string
+  type    = string
   default = "latest"
 }
