@@ -1,5 +1,5 @@
 name: Run Azure and launch TF workflow
-on: [push]
+on: ["push","workflow_dispatch"]
 
 permissions:
       id-token: write
