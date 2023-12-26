@@ -1,4 +1,4 @@
-name: Run Azure and launch TF workflow
+name: Destroy environment
 on: ["workflow_dispatch"]
 
 permissions:
