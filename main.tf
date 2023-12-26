@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "linux-vm-rg" {
   location = "West Europe"
 }
 
-resource "azurerm_virtual_network" "linux-vm-network" {
+resource "azurerm_virtual_network" "linux-vm-vn" {
   name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.linux-vm-rg.location
