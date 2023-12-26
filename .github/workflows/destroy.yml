@@ -1,0 +1,26 @@
+name: Run Azure and launch TF workflow
+on: ["workflow_dispatch"]
+
+permissions:
+      id-token: write
+      contents: read
+
+env:
+  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+  ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+  ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+  ARM_CLIENT_SECRET: "${{ secrets.AZURE_AD_CLIENT_SECRET }}"
+
+jobs: 
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - run: terraform init
+      name: Tf Init
+
+    - id: destroy
+      name: TF Destroy
+      run: terraform destroy -auto-approve
